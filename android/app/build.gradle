@@ -1,0 +1,40 @@
+def localProperties = new Properties()
+
+localProperties.load(new FileInputStream(rootProject.file("local.properties")))
+
+apply plugin: "com.android.application"
+apply from: "${localProperties['flutter']}/packages/flutter_tools/gradle/flutter.gradle"
+
+android {
+	compileSdkVersion rootProject.ext.compileSdkVersion
+	buildToolsVersion "30.0.1"
+	ndkVersion "21.1.6352462"
+
+	lintOptions {
+		disable "InvalidPackage"
+	}
+
+	defaultConfig {
+		targetSdkVersion rootProject.ext.targetSdkVersion
+		testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+		versionCode localProperties["versionCode"].toInteger()
+		versionName localProperties["versionName"]
+		applicationId "tech.hng.internship"
+		minSdkVersion 23
+	}
+
+	compileOptions {
+		sourceCompatibility JavaVersion.VERSION_1_8
+		targetCompatibility JavaVersion.VERSION_1_8
+	}
+}
+
+flutter {
+	source "../.."
+}
+
+dependencies {
+	androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+	androidTestImplementation 'androidx.test:runner:1.2.0'
+	testImplementation 'junit:junit:4.12'
+}
