@@ -1,16 +1,16 @@
-import "package:hng/splash.dart";
-import "package:hng/utils.dart";
+import "package:parrot/splash.dart";
+import "package:parrot/utils.dart";
 
 void main() {
 	runApp(GetMaterialApp(
 		debugShowCheckedModeBanner: false,
 		theme: ThemeData(
-			primarySwatch: material(MAIN_COLOUR),
-			scaffoldBackgroundColor: WHITE,
-			backgroundColor: WHITE,
+			accentColor: MAIN_COLOUR,
+			primaryColor: MAIN_COLOUR,
+			backgroundColor: Colors.white,
 			fontFamily: FONTS[0],
 		),
-		title: "InputCollector",
+		title: "Parrot",
 		home: Splash(),
 	));
 }

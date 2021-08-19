@@ -1,6 +1,8 @@
 def localProperties = new Properties()
+def keyProperties = new Properties()
 
 localProperties.load(new FileInputStream(rootProject.file("local.properties")))
+keyProperties.load(new FileInputStream(rootProject.file("key.properties")))
 
 apply plugin: "com.android.application"
 apply from: "${localProperties['flutter']}/packages/flutter_tools/gradle/flutter.gradle"
@@ -19,8 +21,24 @@ android {
 		testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 		versionCode localProperties["versionCode"].toInteger()
 		versionName localProperties["versionName"]
-		applicationId "tech.hng.internship"
+		applicationId "dev.ugoostanleyibe.parrot"
 		minSdkVersion 23
+	}
+
+	signingConfigs {
+		release {
+			storeFile file(keyProperties["storeFile"])
+			storePassword keyProperties["storePassword"]
+			keyPassword keyProperties["keyPassword"]
+			keyAlias keyProperties["keyAlias"]
+		}
+	}
+
+	buildTypes {
+		release {
+			signingConfig signingConfigs.release
+			minifyEnabled true
+		}
 	}
 
 	compileOptions {

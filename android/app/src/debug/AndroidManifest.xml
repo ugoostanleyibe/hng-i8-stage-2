@@ -1,6 +1,6 @@
 <manifest
 	xmlns:android="http://schemas.android.com/apk/res/android"
-	package="tech.hng.internship">
+	package="dev.ugoostanleyibe.parrot">
 
 	<!-- Flutter needs it to communicate with the running application
 		 to allow setting breakpoints, to provide hot reload, etc. -->

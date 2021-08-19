@@ -1,4 +1,4 @@
-import "package:hng/utils.dart";
+import "package:parrot/utils.dart";
 
 class BigButton extends StatelessWidget {
 

@@ -1,6 +1,6 @@
-import "package:hng/widgets/buttons.dart";
-import "package:hng/widgets/fields.dart";
-import "package:hng/utils.dart";
+import "package:parrot/widgets/buttons.dart";
+import "package:parrot/widgets/fields.dart";
+import "package:parrot/utils.dart";
 
 class Home extends StatelessWidget {
 
@@ -13,49 +13,48 @@ class Home extends StatelessWidget {
 				child: Column(
 					children: [
 						Column(
-							children: [
-								if ($.submitted) ...[
-									Container(
-										child: $.input.text.bold.italic.justify.color(MAIN_COLOUR).size(24.0).makeCentered(),
-										padding: EdgeInsets.fromLTRB(16.0, 32.0, 16.0, 32.0),
-										decoration: BoxDecoration(
-											borderRadius: BorderRadius.circular(8.0),
-											border: Border.all(
-												color: MAIN_COLOUR,
-												width: 2.0,
-											),
+							children: $.submitted ? [
+								Container(
+									child: $.input.text.bold.justify.color(MAIN_COLOUR).size(24.0).makeCentered(),
+									padding: EdgeInsets.fromLTRB(16.0, 32.0, 16.0, 32.0),
+									decoration: BoxDecoration(
+										borderRadius: BorderRadius.circular(8.0),
+										border: Border.all(
+											color: MAIN_COLOUR,
+											width: 2.0,
 										),
 									),
-									40.heightBox,
-									BigButton(
-										onTap: $.restart,
-										title: "Restart",
-									),
-								] else ...[
-									HomeTextField(
-										labelText: "Say Something",
-										onChanged: (value) => $.update(),
-										controller: $.editor,
-									),
-									40.heightBox,
-									BigButton(
-										title: "Submit",
-										onTap: $.submit,
-										live: $.ready,
-									),
-								],
+								),
+								40.heightBox,
+								BigButton(
+									onTap: $.edit,
+									title: "Edit",
+								),
+							] : [
+								HomeTextField(
+									labelText: "Say Something",
+									onChanged: (value) => $.update(),
+									controller: $.editor,
+									focusNode: $.node,
+								),
+								40.heightBox,
+								BigButton(
+									title: "Submit",
+									onTap: $.submit,
+									live: $.ready,
+								),
 							],
 						).expand(),
 						Row(
 							children: [
 								InkWell(
-									onTap: () => launch("https://internship.zuri.team/", enableJavaScript: true, forceWebView: true),
+									onTap: () => launch("https://internship.zuri.team/"),
 									highlightColor: TRANSPARENT,
 									splashColor: TRANSPARENT,
 									child: image("zuri.png"),
 								).expand(),
 								InkWell(
-									onTap: () => launch("https://ingressive.org/", enableJavaScript: true, forceWebView: true),
+									onTap: () => launch("https://ingressive.org/"),
 									highlightColor: TRANSPARENT,
 									splashColor: TRANSPARENT,
 									child: image("i4g.png"),
@@ -77,6 +76,7 @@ class HomeController extends GetxController {
 	String get input => editor.text.trim();
 
 	final editor = TextEditingController();
+	final node = FocusNode();
 
 	bool submitted = false;
 
@@ -86,17 +86,17 @@ class HomeController extends GetxController {
 		super.onClose();
 	}
 
-	void restart() {
-		submitted = false;
-		editor.clear();
-		update();
-	}
-
 	void submit() {
 		if (ready) {
 			Get.focusScope?.unfocus();
 			submitted = true;
 			update();
 		}
+	}
+
+	void edit() {
+		submitted = false;
+		node.requestFocus();
+		update();
 	}
 }

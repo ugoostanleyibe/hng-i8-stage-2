@@ -1,5 +1,5 @@
-import "package:hng/pages/home.dart";
-import "package:hng/utils.dart";
+import "package:parrot/pages/home.dart";
+import "package:parrot/utils.dart";
 
 class Splash extends StatelessWidget {
 
@@ -9,7 +9,7 @@ class Splash extends StatelessWidget {
 	Widget build(BuildContext context) => GetBuilder<SplashController>(
 		init: SplashController(),
 		builder: ($) => Scaffold(
-			body: Center(child: image("hng.png").pSymmetric(h: 64.0)),
+			body: image("hng.png").pSymmetric(h: 64.0).centered(),
 		),
 		tag: "Splash",
 	);

@@ -1,6 +1,6 @@
 description: Mobile App For HNG i8 Stage 2 Task
 version: 1.0.0+1
-name: hng
+name: parrot
 
 environment:
     sdk: ">=2.12.0 <3.0.0"
