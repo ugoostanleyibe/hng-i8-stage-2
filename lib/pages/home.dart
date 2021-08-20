@@ -82,7 +82,7 @@ class HomeController extends GetxController {
 
 	@override
 	void onClose() {
-		editor.dispose();
+		[editor, node].forEach((notifier) => notifier.dispose());
 		super.onClose();
 	}
 
